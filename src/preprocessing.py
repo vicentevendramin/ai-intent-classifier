@@ -4,8 +4,8 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer  # Or LancasterStemmer, SnowballStemmer
 
 # Ensure you have the stopwords downloaded (run once):
-import nltk
-nltk.download('stopwords')
+# import nltk
+# nltk.download('stopwords')
 
 def clean_text(text):
     """
@@ -20,7 +20,7 @@ def clean_text(text):
     return text
 
 
-def remove_stopwords_en(text, language='english'):
+def remove_stopwords(text, language='portuguese'):
     """
     Removes stopwords from a text.
     """
@@ -54,7 +54,7 @@ if __name__ == '__main__':
     cleaned_text = clean_text(example_text)
     print(f"Cleaned text: {cleaned_text}")
 
-    text_without_stopwords = remove_stopwords_en(cleaned_text)
+    text_without_stopwords = remove_stopwords(cleaned_text, language='english')
     print(f"Text without stopwords: {text_without_stopwords}")
 
     stemmed_text = apply_stemming(text_without_stopwords)
