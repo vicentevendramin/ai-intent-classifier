@@ -2,6 +2,8 @@ import pandas as pd
 from src.preprocessing import clean_text, remove_stopwords
 from src.features import BoWVectorizer
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score, classification_report
 
 # Load the data
 try:
@@ -34,6 +36,7 @@ print("\nFirst 50 features", feature_names[:50])
 
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(features, intents, test_size=0.2, random_state=42, stratify=intents)
+# If you have few examples in your CSV
 # X_train, X_test, y_train, y_test = train_test_split(features, intents, test_size=0.2, random_state=42)
 
 print("\nShape of training features:", X_train.shape)
@@ -48,3 +51,19 @@ print("Shape of testing labels:", y_test.shape)
 # y_test: Corresponding intent labels for testing
 
 print("\nData preparation complete. You can now proceed with model training.")
+
+# Initialize the Multinomial Naive Bayes classifier
+model = MultinomialNB()
+
+# Train the model using the training data
+model.fit(X_train, y_train)
+
+# Make predictions on the test data
+y_pred = model.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+print(f"\nAccuracy on the test set: {accuracy:.2f}")
+
+print("\nClassification Report on the test set:")
+print(classification_report(y_test, y_pred))
